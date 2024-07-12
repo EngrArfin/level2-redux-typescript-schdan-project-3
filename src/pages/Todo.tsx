@@ -1,13 +1,15 @@
 import TodoContainer from "@/components/todo/TodoContainer";
-import { Button } from "@/components/ui/button";
 import Container from "@/components/ui/Container";
 
 const Todo = () => {
   return (
     <Container>
-      <h1 className="text-center text-3xl font-semibold my-10">
+      <h2 className="max-auto items-center justify-center font-bold text-xl">
+        Welcome page{" "}
+      </h2>
+      {/* <h1 className="text-center text-3xl font-semibold my-10">
         Hello, First Page Todo! <Button>CLick Here</Button>
-      </h1>
+      </h1> */}
       <TodoContainer></TodoContainer>
     </Container>
   );
