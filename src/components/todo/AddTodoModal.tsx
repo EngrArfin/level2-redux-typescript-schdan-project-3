@@ -11,15 +11,28 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { useAppDispatch } from "@/redux/hook";
+import { addTodo } from "@/redux/features/todoSlice";
 
 const AddTodoModal = () => {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
+  const dispatch = useAppDispatch();
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    console.log({ task, description });
+    const randomString = Math.random().toString(36).substring(2, 7);
+
+    const taskDetails = {
+      id: randomString,
+      title: task,
+      description: description,
+      /* isCompleted: false, */ // Add this line to match TTodo type
+    };
+    console.log(taskDetails);
+
+    dispatch(addTodo(taskDetails));
   };
 
   return (
@@ -31,8 +44,8 @@ const AddTodoModal = () => {
           </Button>
         </DialogTrigger>
 
-        <form onSubmit={onSubmit}>
-          <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px]">
+          <form onSubmit={onSubmit}>
             <DialogHeader>
               <DialogTitle>Add Task</DialogTitle>
               <DialogDescription>
@@ -52,7 +65,7 @@ const AddTodoModal = () => {
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="description" className="text-right">
-                  Discription
+                  Description
                 </Label>
                 <Input
                   onBlur={(e) => setDescription(e.target.value)}
@@ -61,11 +74,13 @@ const AddTodoModal = () => {
                 />
               </div>
             </div>
-            <DialogFooter>
+            <DialogFooter className="flex justify-end">
               <Button type="submit">Save changes</Button>
             </DialogFooter>
-          </DialogContent>
-        </form>
+            {/* <DialogClose asChild>
+            </DialogClose> */}
+          </form>
+        </DialogContent>
       </Dialog>
     </div>
   );
